@@ -16,7 +16,7 @@ enum PropertyType {
 }
 
 enum UserType {
-  BUYSER
+  BUYER
   REALTOR
   ADMIN
 }
@@ -25,7 +25,7 @@ model User {
   id           String   @id @default(uuid())
   name         String
   phone_number String
-  email        String
+  email        String   @unique()
   password     String
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
