@@ -8,3 +8,12 @@ services:
       - 3000:3000
     volumes:
       - .:/home/node/app
+  pg-database:
+    container_name: realtor-db
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=realtor

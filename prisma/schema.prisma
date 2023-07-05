@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PropertyType {
+  RESIDENTIAL
+  CONDO
+}
+
+enum UserType {
+  BUYSER
+  REALTOR
+  ADMIN
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  phone_number String
+  email        String
+  password     String
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  user_type    UserType
+
+  Home             Home[]
+  buyer_messages   Message[] @relation("buyer_messages")
+  realtor_messages Message[] @relation("realtor_messages")
+
+  @@map("user")
+}
+
+model Home {
+  id                  String       @id @default(uuid())
+  address             String
+  number_of_bedrooms  Int
+  number_of_bathrooms Float
+  city                String
+  listed_date         DateTime     @default(now())
+  price               Float
+  land_size           Float
+  property_type       PropertyType
+
+  Image   Image[]
+  Message Message[]
+
+  realtor User @relation(fields: [realtor_id], references: [id], onDelete: Cascade)
+
+  realtor_id String
+
+  @@map("home")
+}
+
+model Image {
+  id         String   @id @default(uuid())
+  url        String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  home    Home   @relation(fields: [home_id], references: [id], onDelete: Cascade)
+  home_id String
+
+  @@map("image")
+}
+
+model Message {
+  id      String @id @default(uuid())
+  message String
+
+  home    Home @relation(fields: [home_id], references: [id], onDelete: Cascade)
+  realtor User @relation("realtor_messages", fields: [realtor_id], references: [id], onDelete: Cascade)
+  buyer   User @relation("buyer_messages", fields: [buyer_id], references: [id], onDelete: Cascade)
+
+  realtor_id String
+  buyer_id   String
+  home_id    String
+
+  @@map("message")
+}
