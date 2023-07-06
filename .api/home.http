@@ -1,0 +1,23 @@
+### Create a home
+POST http://localhost:3000/home
+Content-Type: application/json
+
+{
+  "name": "Alan",
+  "phone_number": "+55 1234567897",
+  "email": "testeapi@email.com",
+  "password": "123456",
+  "productKey": "$2a$10$/a9T/l25seo9Ikv3WseYcu6n5gpGEfCdRZZvfUrmFfb0awZA/GHjC"
+}
+
+### Get all homes
+GET http://localhost:3000/home
+
+### Get a home by id
+GET http://localhost:3000/home/123
+
+### Edit a home by id
+PUT http://localhost:3000/home/123
+
+### Edit a home by id
+DELETE  http://localhost:3000/home/123

@@ -31,7 +31,7 @@ model User {
   updated_at   DateTime @updatedAt
   user_type    UserType
 
-  Home             Home[]
+  Homes             Home[]
   buyer_messages   Message[] @relation("buyer_messages")
   realtor_messages Message[] @relation("realtor_messages")
 
@@ -48,9 +48,11 @@ model Home {
   price               Float
   land_size           Float
   property_type       PropertyType
+  created_at          DateTime     @default(now())
+  updated_at          DateTime     @updatedAt
 
-  Image   Image[]
-  Message Message[]
+  Images   Image[]
+  Messages Message[]
 
   realtor User @relation(fields: [realtor_id], references: [id], onDelete: Cascade)
 
