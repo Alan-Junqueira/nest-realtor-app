@@ -48,8 +48,18 @@ export class HomeService {
     })
   }
 
-  async getHome() {
-    return
+  async getHome(id: string): Promise<HomeResponseDTO> {
+    const home = await this.prismaService.home.findUnique({
+      where: {
+        id
+      }
+    })
+
+    if (!home) {
+      throw new NotFoundException()
+    }
+
+    return new HomeResponseDTO(home)
   }
 
   async createHome() {
