@@ -1,5 +1,6 @@
 ### Create a home
 POST http://localhost:3000/home
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQWxhbiIsImlkIjoiYWVhMzhlZTMtMGYyNS00ZjdhLWEwNjYtZGRlMTY3MmE1YjE3IiwiaWF0IjoxNjg4Njc2OTg0LCJleHAiOjE2ODg3NjMzODR9.lydUgasTO2pBZwRvh2WcZF5j46S422pzckQtVw-r4pE
 Content-Type: application/json
 
 {
