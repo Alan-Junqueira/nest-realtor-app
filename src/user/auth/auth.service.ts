@@ -9,6 +9,7 @@ interface ISignUpParams {
   password: string
   name: string
   phone_number: string
+  userType: UserType
 }
 
 interface ISignInParams {
@@ -21,6 +22,11 @@ interface IGenerateJWT {
   name: string
 }
 
+interface IGenerateProductKey {
+  email: string
+  userType: UserType
+}
+
 @Injectable()
 export class AuthService {
   constructor(private readonly prismaService: PrismaService) { }
@@ -28,7 +34,8 @@ export class AuthService {
     email,
     name,
     password,
-    phone_number
+    phone_number,
+    userType
   }: ISignUpParams) {
     const existentUser = await this.prismaService.user.findUnique({
       where: {
@@ -48,7 +55,7 @@ export class AuthService {
         name,
         password: hashedPassword,
         phone_number,
-        user_type: UserType.BUYER
+        user_type:userType
       }
     })
 
@@ -100,5 +107,16 @@ export class AuthService {
     })
 
     return token
+  }
+
+  async generateProductKey({
+    email,
+    userType
+  }: IGenerateProductKey) {
+    const productKeyBase = `${email}-${userType}-${process.env.PRODUCT_KEY_SECRET}`
+
+    const key = await hash(productKeyBase, 10)
+
+    return { key }
   }
 }

@@ -1,12 +1,13 @@
 ###
-POST http://localhost:3000/auth/signup
+POST http://localhost:3000/auth/signup/REALTOR
 Content-Type: application/json
 
 {
   "name": "Alan",
   "phone_number": "+55 1234567897",
   "email": "testeapi@email.com",
-  "password": "123456"
+  "password": "123456",
+  "productKey": "$2a$10$/a9T/l25seo9Ikv3WseYcu6n5gpGEfCdRZZvfUrmFfb0awZA/GHjC"
 }
 
 ###
@@ -16,4 +17,13 @@ Content-Type: application/json
 {
   "email": "testeapi@email.com",
   "password": "123456"
+}
+
+### Generate a product key
+POST http://localhost:3000/auth/key
+Content-Type: application/json
+
+{
+  "email": "testeapi@email.com",
+  "userType": "REALTOR"
 }
