@@ -1,5 +1,91 @@
 import { PropertyType } from "@prisma/client"
-import { Exclude, Expose } from "class-transformer"
+import { Exclude, Expose, Type } from "class-transformer"
+import { IsArray, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, ValidateNested } from "class-validator"
+
+export class Image {
+  @IsString()
+  @IsNotEmpty()
+  url: string
+}
+
+export class CreateHomeDTO {
+  @IsString()
+  @IsNotEmpty()
+  address: string
+
+  @IsNumber()
+  @IsPositive()
+  numberOfBedrooms: number
+
+  @IsNumber()
+  @IsPositive()
+  numberOfBathrooms: number
+
+  @IsString()
+  @IsNotEmpty()
+  city: string
+
+  @IsNumber()
+  @IsPositive()
+  price: number
+
+  @IsNumber()
+  @IsPositive()
+  landSize: number
+
+  @IsEnum(PropertyType)
+  propertyType: PropertyType
+
+  @IsString()
+  @IsNotEmpty()
+  realtorId: string
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => Image)
+  images: Image[]
+}
+
+export class UpdateHomeDTO {
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  address?: string
+
+  @IsOptional()
+  @IsNumber()
+  @IsPositive()
+  numberOfBedrooms?: number
+
+  @IsOptional()
+  @IsNumber()
+  @IsPositive()
+  numberOfBathrooms?: number
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  city?: string
+
+  @IsOptional()
+  @IsNumber()
+  @IsPositive()
+  price?: number
+
+  @IsOptional()
+  @IsNumber()
+  @IsPositive()
+  landSize?: number
+
+  @IsOptional()
+  @IsEnum(PropertyType)
+  propertyType?: PropertyType
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  realtorId?: string
+}
 
 export class HomeResponseDTO {
   id: string
@@ -62,3 +148,4 @@ export class HomeResponseDTO {
     Object.assign(this, partial)
   }
 }
+

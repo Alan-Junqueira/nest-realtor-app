@@ -12,6 +12,30 @@ interface IGetHomesParams {
   property_type: PropertyType
 }
 
+interface ICreateHomeParams {
+  address: string
+  numberOfBedrooms: number
+  numberOfBathrooms: number
+  city: string
+  price: number
+  landSize: number
+  propertyType: PropertyType
+  realtorId: string
+  images: { url: string }[]
+}
+
+interface IUpdateHomeParams {
+  id: string
+  address?: string
+  numberOfBedrooms?: number
+  numberOfBathrooms?: number
+  city?: string
+  price?: number
+  landSize?: number
+  propertyType?: PropertyType
+  realtorId?: string
+}
+
 @Injectable()
 export class HomeService {
   constructor(private readonly prismaService: PrismaService) { }
@@ -62,12 +86,77 @@ export class HomeService {
     return new HomeResponseDTO(home)
   }
 
-  async createHome() {
-    return
+  async createHome({
+    address,
+    city,
+    images,
+    landSize,
+    numberOfBathrooms,
+    numberOfBedrooms,
+    price,
+    propertyType,
+    realtorId
+  }: ICreateHomeParams) {
+    const home = await this.prismaService.home.create({
+      data: {
+        address,
+        city,
+        land_size: landSize,
+        number_of_bathrooms: numberOfBathrooms,
+        number_of_bedrooms: numberOfBedrooms,
+        price,
+        property_type: propertyType,
+        realtor_id: realtorId
+      }
+    })
+
+    const homeImages = images.map(image => ({ ...image, home_id: home.id }))
+
+    await this.prismaService.image.createMany({
+      data: homeImages
+    })
+
+    return new HomeResponseDTO(home)
   }
 
-  async editHome() {
-    return
+  async updateHomeById({
+    id,
+    address,
+    city,
+    landSize,
+    numberOfBathrooms,
+    numberOfBedrooms,
+    price,
+    propertyType,
+    realtorId
+  }: IUpdateHomeParams) {
+    const existingHome = await this.prismaService.home.findUnique({
+      where: {
+        id
+      }
+    })
+
+    if (!existingHome) {
+      throw new NotFoundException()
+    }
+
+    const updatedHome = await this.prismaService.home.update({
+      where: {
+        id
+      },
+      data: {
+        address,
+        city,
+        land_size: landSize,
+        number_of_bathrooms: numberOfBathrooms,
+        number_of_bedrooms: numberOfBedrooms,
+        price,
+        property_type: propertyType,
+        realtor_id: realtorId
+      }
+    })
+
+    return new HomeResponseDTO(updatedHome)
   }
 
   async deleteHome() {

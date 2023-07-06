@@ -3,11 +3,22 @@ POST http://localhost:3000/home
 Content-Type: application/json
 
 {
-  "name": "Alan",
-  "phone_number": "+55 1234567897",
-  "email": "testeapi@email.com",
-  "password": "123456",
-  "productKey": "$2a$10$/a9T/l25seo9Ikv3WseYcu6n5gpGEfCdRZZvfUrmFfb0awZA/GHjC"
+ "address": "Rua y",
+"numberOfBedrooms": 2,
+"numberOfBathrooms": 3,
+"city": "Cidade X",
+"price": 1000000,
+"landSize": 360000,
+"propertyType": "RESIDENTIAL",
+"images": [
+  {
+    "url": "image1"
+  },
+  {
+    "url": "image2"
+  }
+],
+"realtorId": "aea38ee3-0f25-4f7a-a066-dde1672a5b17"
 }
 
 # query params
@@ -22,7 +33,18 @@ GET http://localhost:3000/home?
 GET http://localhost:3000/home/123
 
 ### Edit a home by id
-PUT http://localhost:3000/home/123
+PUT http://localhost:3000/home/072d8684-d0bf-4d4f-ac4a-e4d2c9e1ee6b
+Content-Type: application/json
+
+{
+ "address": "Rua y",
+"numberOfBedrooms": 2,
+"numberOfBathrooms": 3,
+"city": "Cidade X",
+"price": 1000000,
+"landSize": 360000,
+"propertyType": "RESIDENTIAL"
+}
 
 ### Edit a home by id
 DELETE  http://localhost:3000/home/123
