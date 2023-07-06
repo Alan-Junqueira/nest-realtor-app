@@ -10,8 +10,13 @@ Content-Type: application/json
   "productKey": "$2a$10$/a9T/l25seo9Ikv3WseYcu6n5gpGEfCdRZZvfUrmFfb0awZA/GHjC"
 }
 
+# query params
+# city --> string
+# minPrice --> number
+# maxPrice --> number
+# propertyType --> CONDO | RESIDENTIAL
 ### Get all homes
-GET http://localhost:3000/home
+GET http://localhost:3000/home?
 
 ### Get a home by id
 GET http://localhost:3000/home/123
