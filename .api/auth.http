@@ -8,3 +8,12 @@ Content-Type: application/json
   "email": "testeapi@email.com",
   "password": "123456"
 }
+
+###
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "testeapi@email.com",
+  "password": "123456"
+}
