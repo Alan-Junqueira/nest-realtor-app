@@ -36,10 +36,6 @@ export class CreateHomeDTO {
   @IsEnum(PropertyType)
   propertyType: PropertyType
 
-  @IsString()
-  @IsNotEmpty()
-  realtorId: string
-
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => Image)

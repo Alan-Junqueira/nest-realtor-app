@@ -10,7 +10,7 @@ Content-Type: application/json
 "city": "Cidade X",
 "price": 1000000,
 "landSize": 360000,
-"propertyType": "RESIDENTIAL",
+"propertyType": "CONDO",
 "images": [
   {
     "url": "image1"
@@ -18,8 +18,7 @@ Content-Type: application/json
   {
     "url": "image2"
   }
-],
-"realtorId": "aea38ee3-0f25-4f7a-a066-dde1672a5b17"
+]
 }
 
 # query params
