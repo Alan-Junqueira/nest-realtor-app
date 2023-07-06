@@ -51,9 +51,11 @@ export class HomeController {
     return this.homeService.updateHomeById({ ...body, id })
   }
 
-  @Delete()
+  @Delete(':id')
   @HttpCode(204)
-  deleteHome() {
-    return this.homeService.deleteHome()
+  deleteHome(
+    @Param('id', ParseUUIDPipe) id: string 
+  ) {
+    return this.homeService.deleteHomeById(id)
   }
 }

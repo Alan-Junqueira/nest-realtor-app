@@ -46,5 +46,5 @@ Content-Type: application/json
 "propertyType": "RESIDENTIAL"
 }
 
-### Edit a home by id
-DELETE  http://localhost:3000/home/123
+### Delete a home by id
+DELETE  http://localhost:3000/home/072d8684-d0bf-4d4f-ac4a-e4d2c9e1ee6b

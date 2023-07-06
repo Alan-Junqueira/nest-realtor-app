@@ -159,7 +159,13 @@ export class HomeService {
     return new HomeResponseDTO(updatedHome)
   }
 
-  async deleteHome() {
+  async deleteHomeById(id: string) {
+    await this.prismaService.home.delete({
+      where: {
+        id
+      }
+    })
+
     return
   }
 
