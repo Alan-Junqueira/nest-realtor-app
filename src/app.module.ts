@@ -15,6 +15,4 @@ import { UserInterceptor } from './user/interceptors/user.interceptor';
     useClass: UserInterceptor
   }],
 })
-export class AppModule {}
-
-// 05:41:17
+export class AppModule { }

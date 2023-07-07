@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseUUIDPipe, Post, Put, Query, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseUUIDPipe, Post, Put, Query, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { HomeService } from './home.service';
 import { CreateHomeDTO, HomeResponseDTO, UpdateHomeDTO } from 'src/dtos/home.dto';
-import { PropertyType } from '@prisma/client';
-import { IUserFromToken, User } from 'src/user/decorators/user.decorators';
+import { PropertyType, UserType } from '@prisma/client';
+import { IUserFromToken, User } from 'src/user/decorators/user.decorator';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @Controller('home')
 export class HomeController {
@@ -36,13 +38,16 @@ export class HomeController {
     return this.homeService.getHome(id)
   }
 
+  @Roles(UserType.REALTOR, UserType.ADMIN)
+  @UseGuards(AuthGuard)
   @Post()
   @HttpCode(201)
   createHome(
     @Body() body: CreateHomeDTO,
     @User() user: IUserFromToken
   ) {
-    return this.homeService.createHome({ ...body, realtorId: user.id })
+    return 'created'
+    // return this.homeService.createHome({ ...body, realtorId: user.id })
   }
 
   @Put(":id")
@@ -51,6 +56,10 @@ export class HomeController {
     @Body() body: UpdateHomeDTO,
     @User() user: IUserFromToken
   ) {
+    if (!user) {
+      throw new UnauthorizedException()
+    }
+
     const realtor = await this.homeService.getRealtorByHomeId(id)
 
     if (realtor.id !== user.id) {
@@ -66,6 +75,10 @@ export class HomeController {
     @Param('id', ParseUUIDPipe) id: string,
     @User() user: IUserFromToken
   ) {
+    if (!user) {
+      throw new UnauthorizedException()
+    }
+
     const realtor = await this.homeService.getRealtorByHomeId(id)
 
     if (realtor.id !== user.id) {
