@@ -11,6 +11,18 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:3000/auth/signup/BUYER
+Content-Type: application/json
+
+{
+  "name": "Alan",
+  "phone_number": "+55 1234567897",
+  "email": "testeapi2@email.com",
+  "password": "123456",
+  "productKey": "$2a$10$/a9T/l25seo9Ikv3WseYcu6n5gpGEfCdRZZvfUrmFfb0awZA/GHjC"
+}
+
+###
 POST http://localhost:3000/auth/signin
 Content-Type: application/json
 

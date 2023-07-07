@@ -50,3 +50,12 @@ Content-Type: application/json
 ### Delete a home by id
 DELETE  http://localhost:3000/home/072d8684-d0bf-4d4f-ac4a-e4d2c9e1ee6b
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQWxhbiIsImlkIjoiYWVhMzhlZTMtMGYyNS00ZjdhLWEwNjYtZGRlMTY3MmE1YjE3IiwiaWF0IjoxNjg4Njc2OTg0LCJleHAiOjE2ODg3NjMzODR9.lydUgasTO2pBZwRvh2WcZF5j46S422pzckQtVw-r4pE
+
+### Create a message
+POST http://localhost:3000/home/inquire/48f246ec-6957-49f6-a08a-622fb0a1dc34
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQWxhbiIsImlkIjoiYTBiNDBhZWUtYzE3YS00ZTg3LThmOTEtNTkwMTM2NjE3YmM4IiwiaWF0IjoxNjg4Njk2NzgyLCJleHAiOjE2ODg3ODMxODJ9.fOG3782AvocwJTFEAQjl8HK60bGxCkncPHkygrAGSow
+Content-Type: application/json
+
+{
+  "message": "Mensagem de teste"
+}

@@ -83,6 +83,12 @@ export class UpdateHomeDTO {
   realtorId?: string
 }
 
+export class InquireDTO {
+  @IsString()
+  @IsNotEmpty()
+  message: string
+}
+
 export class HomeResponseDTO {
   id: string
   address: string
