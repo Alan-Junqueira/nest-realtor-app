@@ -46,10 +46,11 @@ export class HomeController {
     @Body() body: CreateHomeDTO,
     @User() user: IUserFromToken
   ) {
-    return 'created'
-    // return this.homeService.createHome({ ...body, realtorId: user.id })
+    return this.homeService.createHome({ ...body, realtorId: user.id })
   }
 
+  @Roles(UserType.REALTOR, UserType.ADMIN)
+  @UseGuards(AuthGuard)
   @Put(":id")
   async updateHome(
     @Param('id', ParseUUIDPipe) id: string,
@@ -69,6 +70,8 @@ export class HomeController {
     return this.homeService.updateHomeById({ ...body, id })
   }
 
+  @Roles(UserType.REALTOR, UserType.ADMIN)
+  @UseGuards(AuthGuard)
   @Delete(':id')
   @HttpCode(204)
   async deleteHome(
