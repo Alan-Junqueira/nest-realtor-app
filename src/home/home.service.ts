@@ -223,6 +223,16 @@ export class HomeService {
     const messages = await this.prismaService.message.findMany({
       where: {
         home_id: homeId
+      },
+      select: {
+        message: true,
+        buyer: {
+          select: {
+            name: true,
+            phone_number: true,
+            email: true
+          }
+        }
       }
     })
 
