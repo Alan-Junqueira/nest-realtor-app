@@ -218,4 +218,14 @@ export class HomeService {
 
     return { newMessage }
   }
+
+  async getMessagesByHome(homeId: string) {
+    const messages = await this.prismaService.message.findMany({
+      where: {
+        home_id: homeId
+      }
+    })
+
+    return { messages }
+  }
 }
